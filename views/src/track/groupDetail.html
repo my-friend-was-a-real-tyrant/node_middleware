@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>拼团指南</title>
+    <style>
+        body,h3,p,div {
+            margin: 0;
+            padding: 0
+        }
+        .head {
+            font-size: .14rem;
+            padding: .15rem;
+        }
+        .title {
+            line-height: .4rem;
+        }
+        .content {
+            text-indent: 1em;
+            margin: .06rem;
+        }
+        .detailImg {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="head">
+        <div>
+            <h3 class="title">
+                什么是多人拼团?
+            </h3>
+            <p class="content">
+                多人拼团(以下简称;拼团)是指由多人一起拼单购买的团购活动,通过拼团买家可以享受比一般网购更低的折扣。
+            </p>
+        </div>
+        <div>
+            <h3 class="title">
+            怎样算拼团成功?
+            </h3>
+            <p class="content">
+                在有效期内达到满足人数的买家参加拼团,即可算拼团成功。
+            </p>
+        </div>
+        <div>
+            <h3 class="title">
+                拼团失败,怎样退款?
+            </h3>
+            <p class="content">
+                若在有效期内没有凑齐人数,即算作拼团失败。系统会自动将所支付的货款原路退回,具体到账时间以各银行为准。
+            </p>
+        </div>
+    </div>
+    
+    <div>
+        <img src="./detail.jpg" alt="拼团指南" class="detailImg">
+    </div>
+    <script>
+        (function(doc, win){
+            var docE1 = doc.documentElement,
+                resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+                recalc = function(){
+                    var clientWidth = docE1.clientWidth;
+                    if(!clientWidth) return;
+                    docE1.style.fontSize = 100 * (clientWidth / 375) + 'px';
+                };
+
+            if (!doc.addEventListener) return;
+            win.addEventListener(resizeEvt,recalc,false);
+            doc.addEventListener('DOMContentLoaded',recalc,false);
+        })(document,window);    
+    </script>
+</body>
+</html>

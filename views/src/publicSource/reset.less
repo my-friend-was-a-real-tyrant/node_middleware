@@ -1,0 +1,42 @@
+/*初始化*/
+*{ margin: 0; padding: 0; box-sizing: border-box;
+    /*解决ios点击出现灰色背景*/
+    -webkit-text-size-adjust: none;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    font-family: "微软雅黑",'Microsoft Yahei Light','Microsoft Yahei','PingFangSC-Regular',Tahoma,Helvetica, Arial,'\5b8b\4f53',sans-serif;
+}
+a,a:hover{ text-decoration:none; color: #333;}
+em,i{ font-style: normal;}
+b,strong{ font-weight: normal;}
+img{ vertical-align: top; border: 0 none;}
+li{ list-style: none;}
+input, button, textarea, select{ outline: 0 none; background-color:transparent; border-color:transparent; -webkit-appearance: none;}
+pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+body{ background: #fff; -webkit-font-smoothing: antialiased;}
+.clearFix{ *zoom: 1;}
+.clearFix:after{ content: "."; display: block; visibility: hidden; height: 0; clear: both; font-size: 0;}
+
+.fr{ float: right;}
+.fl{ float: left;}
+.displayNone{ display: none;}
+
+html, body{ width: 100%; height: 100%;}
+
+.demo-table-expand{ word-wrap: break-word; word-break: break-all;}
+
+[class^="el-icon-my"], [class*=" el-icon-my"] {
+    font-family:"iconfont" !important;
+    
+    /* 以下内容参照第三方图标库本身的规则 */
+    font-size: inherit;
+    font-style:normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+.el-menu-item [class^=el-icon-], .el-submenu [class^=el-icon-]{
+    vertical-align: middle;
+    font-size: 22px;
+}

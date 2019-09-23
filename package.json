@@ -1,0 +1,29 @@
+{
+  "name": "koaTest",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "server": "pm2 start pm2-prod.json",
+    "dev": "pm2 start pm2-dev.json",
+    "test": "pm2 start pm2-test.json",
+    "api": "apidoc -i ./controllers -o ./apidoc"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.16.2",
+    "crypto": "^1.0.1",
+    "element-ui": "^2.3.7",
+    "ioredis": "^3.1.2",
+    "koa": "^2.7.0",
+    "koa-body": "^2.0.1",
+    "koa-convert": "^1.2.0",
+    "koa-router": "^7.1.1",
+    "koa-session": "^5.0.0",
+    "koa-session2": "^2.2.4",
+    "koa-static": "^3.0.0",
+    "request": "^2.81.0",
+    "request-promise": "^4.2.1"
+  }
+}

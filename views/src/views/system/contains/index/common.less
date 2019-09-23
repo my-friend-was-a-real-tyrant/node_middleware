@@ -1,0 +1,28 @@
+// .banner{ width: 100%;}
+// .address{ display: flex; justify-content: space-between; align-items: center; height: .6rem; padding: 0 .3rem; background-color: #000; color: #fff; font-size: .26rem;
+//     i{ display: inline-block; height: .44rem; width: .8rem; border: 1px solid #fff; border-radius: .08rem; line-height: .44rem; text-align: center;}
+// }
+// .nav{
+//     &-list{ display: flex; flex-wrap: wrap; width: 100%;}
+//     &-item{ display: flex; flex-direction: column; align-items: center; width: 1.8rem; padding-top: .32rem; border-right: 1px solid #dcdcdc; border-bottom: 1px solid #dcdcdc;
+//         &:nth-child(4n + 0){ border-right: 0 none;}
+//         img{ width: .72rem; height: .72rem;}
+//         p{ height: .6rem; font-size: .28rem; color: #333; line-height: .6rem;}
+//     }
+// }
+@base-color:#333;
+@active-color:#e9be6d;
+@border-e8:#e8e8e8;
+@color-99:#999;
+@color-fba:#fbad1c;
+.texts-overflow(@line: 2) {
+    display: -webkit-box !important;
+    /*! autoprefixer: off */
+    -webkit-box-orient: vertical;
+    /* autoprefixer: on */
+    -webkit-line-clamp: @line;
+    overflow: hidden;
+    text-overflow: ellipsis;
+	white-space: normal !important;
+	word-break: break-all;
+}

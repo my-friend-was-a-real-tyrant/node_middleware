@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style type="text/css">
+        .logo{
+            margin: 6rem auto;
+            width: 8rem;
+        }
+        .logo img{
+            width: 8rem;
+        }
+        .downloadBtn{
+            display: block;
+            width: 10rem;
+            margin: 0 auto;
+            outline: none;
+            -webkit-tap-highlight-color: rgba(0,0,0,0);
+            text-decoration: none;
+        }
+        .downloadBtn img{
+            width: 10rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="logo">
+        <img src="./logo.png" alt="logo">
+    </div>
+    <a class="downloadBtn" id="download" href="">
+        <img src="./downloadBtn.png" alt="download">
+    </a>
+    <script>
+        // var link = document.getElementById('link');
+        // link.onclick = function(){
+        //    this.href = ''
+        //    window.location.href = '';
+        // }
+
+
+    //设置1rem = 20px；
+    (function (doc, win) {
+        var docEl = doc.documentElement;
+        resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize';
+        recalc = function () {
+            var clientWidth = docEl.clientWidth;
+            if (!clientWidth) return;
+            docEl.style.fontSize = 20 * (clientWidth / 375) + 'px';
+        };
+        if (!doc.addEventListener) return;
+        win.addEventListener(resizeEvt, recalc, false);
+        doc.addEventListener('DOMContentLoaded', recalc, false);
+    }(document,window));
+
+    </script>
+    <script>
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                console.log(xhr.responseText);
+                document.getElementById("download").href = JSON.parse(xhr.responseText).data.url;
+            }
+        }
+        xhr.open("GET","/api/common/autoUpdate?type=2",true);
+        xhr.send();
+    </script>
+</body>
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>下载</title>
+        <script>
+            (function (doc, win) {
+                var docEl = doc.documentElement;
+                resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize';
+                recalc = function () {
+                    var clientWidth = docEl.clientWidth;
+                    if (!clientWidth) return;
+                    docEl.style.fontSize = 20 * (clientWidth / 375) + 'px';
+                };
+                if (!doc.addEventListener) return;
+                win.addEventListener(resizeEvt, recalc, false);
+                doc.addEventListener('DOMContentLoaded', recalc, false);
+            }(document, window));
+        </script>
+        <style type="text/css">
+            *{
+                margin: 0;
+                padding: 0;
+            }
+            .logo1{
+                width: 18.75rem;
+                height: 27.7rem;
+                background-image: url(./beijingtu.png);
+                background-repeat: no-repeat;
+                background-size: 100% 100%;
+                display: none;     
+            }
+            .logo2{
+                width: 18.75rem;
+                height: 30rem;
+                background-image: url(./down.png);
+                background-repeat: no-repeat;
+                background-size: 100% 100%;
+                display: none;   
+            }
+            .logo1 .downloadBtn1{
+                display: block;
+                width: 12.5rem;
+                height: 2.1rem;
+                line-height: 2.1rem;
+                outline: none;
+                text-decoration: none;
+                border-radius: 42px;
+                position: absolute;
+                top: 5.5rem;
+                left: 3.1rem;
+            }
+            .logo2 .downloadBtn2{
+                display: block;
+                width: 12.5rem;
+                height: 2.1rem;
+                line-height: 2.1rem;
+                outline: none;
+                text-decoration: none;
+                border-radius: 42px;
+                position: absolute;
+                bottom: 2.5rem;
+                left: 3.1rem;
+                display: none;
+            }
+            a{
+                text-align: center;
+                border: 1px solid #e9be6d;
+                font-size: .7rem;
+                color: #e9be6d;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="logo1" id="logo1">
+            <a class="downloadBtn1" id="download1" href="">点击下载</a>
+        </div>
+        <div class="logo2" id="logo2">
+            <a class="downloadBtn2" id="download2" href="">点击下载</a>
+        </div>
+    </body>
+</html>
+<script>
+    window.onload = function () {
+        // 判断是Ios终端还是Android终端
+        function JudgePhone(params) {
+            var ua = navigator.userAgent;
+            if (/(iPhone|iPad|iPod|iOS)/i.test(ua)) {
+                return true;
+            } else if (/(Android)/i.test(ua)) {
+                return false;
+            }
+        }
+        
+        // 判断是不是在Safari浏览器
+        function JudgeSafari(params) {
+            var userAgent = navigator.userAgent;        //取得浏览器的userAgent字符串
+            return userAgent.indexOf("Safari") > -1 ? true : false;
+        }
+
+        // 安卓设备获取apk下载地址
+        function Ajax(params) {
+            var body = document.getElementById("logo1");
+            var atag = document.getElementById("download1");
+            body.style.display = "block";
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    atag.href = JSON.parse(xhr.responseText).data.url;
+                }
+            }
+            xhr.open("GET", "/api/common/autoUpdate?type=1", true);
+            xhr.send();
+        }
+
+        // 如果是Ios终端则显示提示操作的图片
+        function ShowHide(params) {
+            var body = document.getElementById("logo2");
+            body.style.display = "block";
+        }
+
+        // safari浏览器上显示的样式，改变下载的地址，点击下载时跳转App Store
+        function InSafari(params) {
+            var body = document.getElementById("logo1");
+            body.style.display = "block";
+            var atag = document.getElementById("download1");
+            atag.href = "https://itunes.apple.com/us/app/中大普惠惠生活/id1356393944?l=zh&ls=1&mt=8";
+        }
+
+        // 字符串倒序
+        function str_reverse (params) {
+            return params.split("").reverse().join("");
+        }
+
+        // Ios终端，或是Android终端
+        var isType = JudgePhone();
+        // 是否是Safari浏览器
+        var isSafari = JudgeSafari();
+        // Ios终端，并非在Safari浏览器打开
+        var inIos = isType && !isSafari;
+        // Ios终端且在Safari浏览器打开
+        var inIosSafari = isType && isSafari;
+
+        inIos ? ShowHide() : inIosSafari ? InSafari() : !isType ? Ajax() : "";
+    }
+</script>
