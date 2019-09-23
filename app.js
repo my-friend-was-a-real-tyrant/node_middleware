@@ -1,6 +1,7 @@
 const Koa = require('koa');
 // 路由
 const router = require('./router');
+const otherRouter = require('./otherRouter')
 // 静态文件
 const serve = require('koa-static');
 // session
@@ -24,7 +25,7 @@ const { appid, appSecret, redirectUri, redirect, hostname, manageSystemHostname 
 // 添加String的格式化
 String.prototype.format = function(args) {
     let result = this;
-    if (arguments.length > 0) {    
+    if (arguments.length > 0) {
         if (arguments.length == 1 && typeof (args) == "object") {
             for (let key in args) {
                 if(args[key]!=undefined){
@@ -299,10 +300,16 @@ app.use(async (ctx, next) => {
 
     await next();
 });
-  
+
 app
     .use(router.routes())
     .use(router.allowedMethods());
+
+app
+  .use(otherRouter.routes())
+  .use(otherRouter.allowedMethods())
+
+
 
 // 错误处理
 app.on('error', (err,ctx) => {
