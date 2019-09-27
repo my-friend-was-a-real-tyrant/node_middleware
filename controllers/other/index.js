@@ -1,14 +1,33 @@
-const axios = require('axios')
+const CarInfo = require('./selfCarInfo')
+const Template = require('./template')
+const ApplyCard = require('./applyCard')
+const PageOpenInfo = require('./pageOpenInfo')
+const CheckInfo = require('./checkInfo')
+const upNickName = require('./upNickName')
+const PayCard = require('./payCard')
+const CheckPay = require('./checkPay')
+const SelCardList = require('./selCardList')
+const Refund = require('./refund')
+const PageRefund = require('./pageRefund')
+const ShopType = require('./shopType')
+const Shop = require('./Shop')
+const CardInfo = require('./cardInfo')
+const SelPayCheckInfo = require('./selPayCheckInfo')
 
-const env = process.env.NODE_ENV;
-const baseUrl = env=== 'development' ? 'http://hzxwkj.vicp.io:11134/' : `api/`;
-
-
-class Service {
-  constructor () {
-    this.axios = axios
-    this.baseUrl = baseUrl
-  }
+module.exports = {
+  CarInfo,
+  ApplyCard,
+  CheckInfo,
+  CardInfo,
+  SelPayCheckInfo,
+  Shop,
+  upNickName,
+  SelCardList,
+  PageRefund,
+  ShopType,
+  PayCard,
+  CheckPay,
+  PageOpenInfo,
+  Refund,
+  Template
 }
-
-module.exports = Service

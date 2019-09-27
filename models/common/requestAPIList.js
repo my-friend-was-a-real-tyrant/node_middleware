@@ -284,6 +284,14 @@ module.exports = {
             description: '文件上传',
             path: '/v1/file',
             method: 'post'
+        },
+        '1902': {
+            baseUrl: 'http://hzxwkj.vicp.io',
+            port: 11134,
+            // port: '80',
+            description: '文件上传',
+            path: '/cardinfo/paylist',
+            method: 'post'
         }
     },
     '21': {
@@ -563,9 +571,9 @@ module.exports = {
             path: '/manage/v1/bill/roomPreStorage/modify',
             method: 'patch'
         },
-        
-        
-        
+
+
+
         '2420': {
             baseUrl: property.baseUrl,
             port: property.port,
@@ -961,7 +969,7 @@ module.exports = {
             path: '/user/v1/merchandises/reference',
             method: 'get'
         }
-        
+
     },
     '34': {
         description: '商品管理',
@@ -1035,7 +1043,7 @@ module.exports = {
             baseUrl: mall.baseUrl,
             port: mall.port,
             description: '单买分页列表',
-            path: 'manage/v1/merchandisesGroups/single-list',            
+            path: 'manage/v1/merchandisesGroups/single-list',
             method: 'get'
         },
         '3427': {
@@ -1081,7 +1089,7 @@ module.exports = {
             method: 'patch'
         }
 
-        
+
     },
     '35': {
         description: '订单',
@@ -1127,9 +1135,9 @@ module.exports = {
             path: '/user/v1/merchandises/single',
             method: 'post'
         },
-        
-        
-        
+
+
+
         '3511': {
             baseUrl: mall.baseUrl,
             port: mall.port,
@@ -1175,7 +1183,7 @@ module.exports = {
             path: '/manage/v1/merchandiseSingles/{singleId}/orders',
             method: 'get'
         }
-        
+
     },
     '37': {
         description: '优惠券',

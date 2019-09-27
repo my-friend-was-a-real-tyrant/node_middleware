@@ -63,6 +63,58 @@ class CommonModel {
         // return new Promise((resolve) => { resolve({ code: 10000, returnData: { subCode: 10000}})})
     }
 
+    static uploadFile3({ files, uploadType, uploadFileType }) {
+        console.log(111);
+        const api = requestAPIList['19']['1902'];
+        const httpRequestParams = new NewRequestParams(api);
+        const postData = {
+            file: files,
+            uploadType: uploadType,
+            fileSuffixType: uploadFileType
+        };
+        httpRequestParams.formData = postData;
+        httpRequestParams.headers = {
+            'Content-Type': 'multipart/form-data'
+        };
+        delete httpRequestParams.body;
+        delete httpRequestParams.json;
+        // console.log(httpRequestParams);
+        // return (request(httpRequestParams));
+        const axiosHttpRequestParams = {
+            url: httpRequestParams.uri,
+            baseURL: httpRequestParams.baseUrl,
+            headers: httpRequestParams.headers,
+            data: httpRequestParams.formData,
+            method: 'post'
+        };
+        console.log(axiosHttpRequestParams);
+        return axios(axiosHttpRequestParams);
+
+        // const api = requestAPIList['19']['1901'];
+        // const httpRequestParams = new NewRequestParams(api);
+        // httpRequestParams.body = {
+        //     // file: files,
+        //     // uploadType: uploadType,
+        //     fileSuffixType: uploadFileType
+        // };
+        // httpRequestParams.headers = {
+        //     'Content-Type': 'multipart/form-data'
+        // };
+        // console.log(httpRequestParams);
+        // try {
+        //     const p = request(httpRequestParams);
+        //     console.log(123);
+        //     return p;
+        // } catch(e) {
+        //     console.log(e);
+        // } finally {
+        //     console.log('commonModel finally');
+        // }
+
+        // return request(httpRequestParams);
+        // return new Promise((resolve) => { resolve({ code: 10000, returnData: { subCode: 10000}})})
+    }
+
     static requestOpenid({ code, appid, appSecret }) {
         const httpRequestParams = new NewRequestParams({
             baseUrl: 'https://api.weixin.qq.com',

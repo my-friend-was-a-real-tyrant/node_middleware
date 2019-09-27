@@ -42,7 +42,7 @@ class CommonController {
      *         "uploadFileType": "1"
      *     }
      *   }
-     * 
+     *
      * @apiUse CODE_200
      * @apiSuccess (Reponse 200) {string} url 返回服务器存储的图片地址
      *
@@ -95,8 +95,8 @@ class CommonController {
             returnData,
             method: commonModel.uploadFile,
             params: {
-                files, 
-                uploadType, 
+                files,
+                uploadType,
                 uploadFileType
             },
             success(responseData) {
@@ -107,7 +107,70 @@ class CommonController {
         });
         ctx.body = returnData;
     }
-    
+
+
+    // 自己
+    static async uploadFile2(ctx) {
+        let returnData = baseController.getSuccess();
+        const postData = ctx.request.body.files.file;
+        const { uploadType, uploadFileType } = ctx.request.body.fields;
+        const files = [];
+        if (postData instanceof Array) {
+            for (let i = 0; i < postData.length; i ++) {
+                const f = postData[i];
+                const oo = {
+                    value: fs.createReadStream(f.path),
+                    options: {
+                        filename: f.name,
+                        contentType: f.mimeType
+                    }
+                };
+                files.push(oo);
+            }
+        } else {
+            const oo = {
+                value: fs.createReadStream(postData.path),
+                options: {
+                    filename: postData.name,
+                    contentType: postData.mimeType
+                }
+            };
+            files.push(oo);
+        }
+
+        // commonModel.uploadFile({ files, uploadFileType, uploadFileType }).then((responseData) => {
+        //     console.log(responseData);
+        //     if (responseData.code !== 10000) {
+        //         baseController.getFail(returnData, 'E0003', responseData.message);
+        //     } else if (responseData.returnData.subCode !== 10000) {
+        //         baseController.getFail(returnData, 'E0003', responseData.returnData.subMessage);
+        //     } else {
+        //         returnData.url = responseData.returnData.data.filePath;
+        //     }
+        //     ctx.body = returnData;
+        // }).catch((response) => {
+        //     console.log(response);
+        //     baseController.getFail(returnData, 'E0002', 'opps, sth wrong');
+        //     ctx.body = returnData;
+        // });
+        // ctx.body = returnData;
+        await exception({
+            returnData,
+            method: commonModel.uploadFile3,
+            params: {
+                files,
+                uploadType,
+                uploadFileType
+            },
+            success(responseData) {
+                console.log(responseData);
+                returnData.url = responseData.returnData.data.filePath;
+                // returnData.data = responseData.returnData.data;
+            }
+        });
+        ctx.body = returnData;
+    }
+
     /**
      * @api {GET} /api/common/getMyDeliveryAddress 获取我的收货地址
      * @apiName get my delivery address
@@ -154,7 +217,7 @@ class CommonController {
      *         "districtName": "滨江"
      *     }
      *   }
-     * 
+     *
      *
      */
     static async getMyDeliveryAddress(ctx) {
@@ -187,7 +250,7 @@ class CommonController {
      *   {
      *     "addressId": 1
      *   }
-     * 
+     *
      * @apiUse CODE_200
      *
      */
@@ -232,7 +295,7 @@ class CommonController {
      *         "provinceName": "浙江省"
      *     }]
      *   }
-     * 
+     *
      *
      */
     static async getProvinceList(ctx) {
@@ -261,9 +324,9 @@ class CommonController {
      * @apiGroup System and Mall
      * @apiVersion 1.4.1
      * @apiDescription 获取市列表
-     * 
+     *
      * @apiParam {number} provinceId 省ID
-     * 
+     *
      * @apiParamExample {json} Request Example
      *   GET /api/common/getCityList
      *   {
@@ -275,7 +338,7 @@ class CommonController {
      * @apiSuccess (Reponse 200) {array} cityList 市列表
      * @apiSuccess (cityList) {number} cityId 市ID
      * @apiSuccess (cityList) {string} cityName 市名字
-     * 
+     *
      * @apiSuccessExample {json} Response 200 Example
      *   HTTP/1.1 200 OK
      *   {
@@ -286,7 +349,7 @@ class CommonController {
      *         "cityName": "杭州市"
      *     }]
      *   }
-     * 
+     *
      *
      */
     static async getCityList(ctx) {
@@ -323,9 +386,9 @@ class CommonController {
      * @apiGroup System and Mall
      * @apiVersion 1.4.1
      * @apiDescription 获取区列表
-     * 
+     *
      * @apiParam {number} cityId 市ID
-     * 
+     *
      * @apiParamExample {json} Request Example
      *   GET /api/common/getDistrictList
      *   {
@@ -337,7 +400,7 @@ class CommonController {
      * @apiSuccess (Reponse 200) {array} districtList 区列表
      * @apiSuccess (districtList) {number} districtId 区ID
      * @apiSuccess (districtList) {string} districtName 区名字
-     * 
+     *
      * @apiSuccessExample {json} Response 200 Example
      *   HTTP/1.1 200 OK
      *   {
@@ -348,7 +411,7 @@ class CommonController {
      *         "districtName": "滨江区"
      *     }]
      *   }
-     * 
+     *
      *
      */
     static async getDistrictList(ctx) {
@@ -401,7 +464,7 @@ class CommonController {
      *     "address": "新东方国际科技中心楼下十足旁边的外卖盒",
      *     "isFrequent": true
      *   }
-     * 
+     *
      * @apiUse CODE_200
      *
      */
@@ -438,7 +501,7 @@ class CommonController {
      *   {
      *     "addressId": 1
      *   }
-     * 
+     *
      * @apiSuccess (Reponse 200) {string} code 00000
      * @apiSuccess (Reponse 200) {string} message success
      * @apiSuccess (Reponse 200) {object} info 收货地址信息
@@ -452,7 +515,7 @@ class CommonController {
      * @apiSuccess (info) {number} districtName 收货地址区名称
      * @apiSuccess (info) {string} address 收货详细地址
      * @apiSuccess (info) {bool} isFrequent 是否为常用地址
-     * 
+     *
      * @apiSuccessExample {json} Response 200 Example
      *   HTTP/1.1 200 OK
      *   {
@@ -528,7 +591,7 @@ class CommonController {
      *     "districtId": 1,
      *     "address": "新东方国际科技中心楼下十足旁边的外卖盒"
      *   }
-     * 
+     *
      * @apiUse CODE_200
      *
      */
@@ -565,7 +628,7 @@ class CommonController {
      *   {
      *     "addressId": 1
      *   }
-     * 
+     *
      * @apiUse CODE_200
      *
      */
@@ -596,7 +659,7 @@ class CommonController {
      * @apiDescription 清除session
      *
      * @apiUse CODE_200
-     * 
+     *
      *
      */
     static async clearSession(ctx) {
