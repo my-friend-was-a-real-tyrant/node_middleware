@@ -1,23 +1,6 @@
 const axios = require('axios')
-const FormData = require('form-data')
-const send = require('koa-send');
 const apiUrl = require('./config/config')
-// const fs = require('fs-extra')
 const fs = require('fs')
-const multiparty = require("multiparty");
-const pp = require('path')
-const _readFile = (path) => {
-  return new Promise(resolve => {
-    fs.readFile(path, (err, data) => {
-      if (err) {
-        resolve(err)
-      }
-      else {
-        resolve(data)
-      }
-    })
-  })
-}
 
 class Template {
 

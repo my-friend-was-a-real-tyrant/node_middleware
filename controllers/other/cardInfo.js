@@ -35,7 +35,7 @@ class CardInfo{
   static async CreQr (data) {
 
     let params = ''
-    params += data.cardNum ? `cardNum=${encodeURI(data.cardNum)}&` : ''
+    params += data.cardNum ? `cardNum=${data.cardNum}&` : ''
 
     // return params
 
@@ -46,7 +46,7 @@ class CardInfo{
   static async selShopTemp (data) {
 
     let params = ''
-    params += data.cardNum ? `cardNum=${encodeURI(data.cardNum)}&` : ''
+    params += data.cardNum ? `cardNum=${data.cardNum}&` : ''
 
     // return params
 

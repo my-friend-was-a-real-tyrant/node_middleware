@@ -1,6 +1,7 @@
 const Koa = require('koa');
 // 路由
 const router = require('./router');
+const otherRouter = require('./otherRouter')
 // 静态文件
 const serve = require('koa-static');
 // session
@@ -10,7 +11,7 @@ const Store = require('./Store');
 // 路径解析
 const url = require('url');
 
-const app = new Koa();
+const app1 = new Koa();
 
 const commonModel = require('./models/CommonModel');
 // 微信开发调试转发请求
@@ -24,7 +25,7 @@ const { appid, appSecret, redirectUri, redirect, hostname, manageSystemHostname 
 // 添加String的格式化
 String.prototype.format = function(args) {
     let result = this;
-    if (arguments.length > 0) {    
+    if (arguments.length > 0) {
         if (arguments.length == 1 && typeof (args) == "object") {
             for (let key in args) {
                 if(args[key]!=undefined){
@@ -47,7 +48,7 @@ String.prototype.format = function(args) {
 
 
 // session
-// app.keys = ['some secret hurr'];
+// app1.keys = ['some secret hurr'];
 // const CONFIG = {
 //     key: 'koa:sess',
 //     maxAge: 604800000,
@@ -57,8 +58,8 @@ String.prototype.format = function(args) {
 //     signed: true,
 //     rolling: true // session刷新过期时间
 // };
-// app.use(convert(session(CONFIG, app)));
-app.use(session({
+// app1.use(convert(session(CONFIG, app1)));
+app1.use(session({
     key: 'koa:sess',
     store: new Store(),
     maxAge: 604800000,
@@ -69,7 +70,7 @@ console.log(process.env.NODE_ENV);
 const env = process.env.NODE_ENV;
 
 // interceptor
-app.use(async (ctx, next) => {
+app1.use(async (ctx, next) => {
     // ctx.session = null;
     const requestUrl = url.parse(ctx.request.url, true);
     // 微信端链接
@@ -164,7 +165,7 @@ app.use(async (ctx, next) => {
 // 微信开发调试
 // if (process.env.NODE_ENV === 'development') {
 //     console.log('wechat dev');
-//     app.use(async (ctx, next) => {
+//     app1.use(async (ctx, next) => {
 //         const requestUrl = url.parse(ctx.request.url, true);
 //         const wechatReg = /^\/((system|mall|login)\/|vendors|chunks)/;
 //         const typeReg = /\.(\w*)$/;
@@ -192,11 +193,11 @@ app.use(async (ctx, next) => {
 
 // views
 // 取消默认index
-app.use(serve('./views', {
+app1.use(serve('./views', {
     index: 'NoIndex'
 }));
 
-app.use(async (ctx, next) => {
+app1.use(async (ctx, next) => {
     // 请求，拦截检测session，过期直接返回session过期码，让页面跳转
     const requestUrl = url.parse(ctx.request.url, true);
     const systemReg = /^\/system\//;
@@ -299,13 +300,19 @@ app.use(async (ctx, next) => {
 
     await next();
 });
-  
-app
+
+app1
     .use(router.routes())
     .use(router.allowedMethods());
 
+app1
+  .use(otherRouter.routes())
+  .use(otherRouter.allowedMethods())
+
+
+
 // 错误处理
-app.on('error', (err,ctx) => {
+app1.on('error', (err, ctx) => {
     const requestUrl = url.parse(ctx.request.url, true);
     const apiReg = /^\/api/;
     if (apiReg.test(requestUrl.pathname) === true) {
@@ -317,5 +324,5 @@ app.on('error', (err,ctx) => {
     console.log(err);
 });
 
-app.listen(env === 'production' ? 18800 : 18801);
+app1.listen(env === 'production' ? 18800 : 18801);
 console.log('zdWechat start');

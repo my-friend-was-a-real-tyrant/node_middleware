@@ -7,7 +7,7 @@ class UpNickName{
 
   static async UpNickName (data) {
     let params = ''
-    params += data.cardNum ? `cardNum=${encodeURI(data.cardNum)}&` : ''
+    params += data.cardNum ? `cardNum=${data.cardNum}&` : ''
     params += data.nickName ? `nickName=${encodeURI(data.nickName)}` : ''
     // return params
 
