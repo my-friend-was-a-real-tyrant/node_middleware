@@ -182,10 +182,11 @@ router.get('/api/shop/pageShopRecordDay', async (ctx, next) => {
 })
 
 router.get('/api/shop/pageShopRecordMonth', async (ctx, next) => {
-  // if (ctx.session.user) {
-  //   ctx.request.query.userId = ctx.request.query.userId
-  // }
-  const result = await otherControll.Shop.pageShopRecordMonth(ctx.request.query)
+  var query = ctx.request.query
+  if (ctx.session.manager) {
+    query.userId = ctx.session.manager.accountId
+  }
+  const result = await otherControll.Shop.pageShopRecordMonth(query)
   ctx.body =  successFormat.successFormat(result)
   // ctx.body = ctx.session.user
 })
@@ -236,16 +237,19 @@ router.get('/api/cardinfo/selShopTemp', async (ctx, next) => {
 
 
 router.get('/api/cardinfo/selIsPay', async (ctx, next) => {
+  if (ctx.session.manager) {
+    ctx.request.query.userId = ctx.session.manager.accountId
+  }
   const result = await otherControll.CardInfo.selIsPay(ctx.request.query)
   ctx.body =  successFormat.successFormat(result)
   // ctx.body = ctx.session.user
 })
 router.post('/api/cardinfo/Charge', async (ctx, next) => {
-  if (ctx.session.user) {
-    ctx.body = 444
-    ctx.request.query.userId = ctx.request.query.userId
+  var query = ctx.request.query
+  if (ctx.session.manager) {
+    query.userId = ctx.session.manager.accountId
   }
-  const result = await otherControll.CardInfo.Charge(ctx.request.query)
+  const result = await otherControll.CardInfo.Charge(query)
   ctx.body =  successFormat.successFormat(result)
   // ctx.body = ctx.session.user
 })

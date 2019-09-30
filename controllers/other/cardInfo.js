@@ -58,6 +58,7 @@ class CardInfo{
 
     let params = ''
     params += data.cardNum ? `cardNum=${encodeURI(data.cardNum)}&` : ''
+    params += data.userId ? `userId=${encodeURI(data.userId)}&` : ''
 
     // return params
 
